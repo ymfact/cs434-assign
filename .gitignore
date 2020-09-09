@@ -1,2 +1,7 @@
+### Scala ###
 *.class
 *.log
+
+### For Homework ###
+*.iml
+.idea
