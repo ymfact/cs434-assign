@@ -2,6 +2,20 @@
 *.class
 *.log
 
-### For Homework ###
+### IntelliJ ###
 *.iml
+*.ipr
+*.iws
 .idea
+out
+
+### SBT ###
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+.history
+.cache
+.lib/
