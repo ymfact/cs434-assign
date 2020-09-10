@@ -121,4 +121,20 @@ class ListsSuite extends AnyFunSuite {
   test("max of a few numbers") {
     assert(max(List(3, 7, 2)) === 7)
   }
+
+  test("my tests") {
+    assert(sum(List()) === 0)
+    assert(sum(List(0)) === 0)
+    assert(sum(List(-1)) === -1)
+    assert(sum(List(-1, -1)) === -2)
+    assert(sum(List(-1, 1)) === 0)
+    assert(sum(List(1, -1)) === 0)
+
+    assertThrows[NoSuchElementException](max(List()))
+    assert(max(List(0)) === 0)
+    assert(max(List(-1)) === -1)
+    assert(max(List(-1, -1)) === -1)
+    assert(max(List(1, -1)) === 1)
+    assert(max(List(-1, 1)) === 1)
+  }
 }
