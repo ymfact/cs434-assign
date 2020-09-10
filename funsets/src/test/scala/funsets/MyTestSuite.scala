@@ -23,7 +23,7 @@ class MyTestSuite extends AnyFunSuite {
     val s23 = union(s2, s3)
     val s123 = union(s12, s3)
 
-    def assertSet(set: Set, result: String) = assert(FunSets.toString(set) == result)
+    def assertSet(set: Set, result: String) = assert(FunSets.toString(set) === result)
   }
 
   test("contains") {
