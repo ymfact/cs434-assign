@@ -1,6 +1,7 @@
 package funsets
 
 import org.junit.runner.RunWith
+import org.scalatest.Assertion
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatestplus.junit.JUnitRunner
 
@@ -16,20 +17,24 @@ class MyTestSuite extends AnyFunSuite {
   import FunSets._
 
   trait TestSets {
-    val s1 = singletonSet(1)
-    val s2 = singletonSet(2)
-    val s3 = singletonSet(3)
-    val s12 = union(s1, s2)
-    val s23 = union(s2, s3)
-    val s123 = union(s12, s3)
+    val s1: Set = singletonSet(1)
+    val s2: Set = singletonSet(2)
+    val s3: Set = singletonSet(3)
+    val s12: Set = union(s1, s2)
+    val s23: Set = union(s2, s3)
+    val s123: Set = union(s12, s3)
 
-    def assertSet(set: Set, result: String) = assert(FunSets.toString(set) === result)
+    def assertSet(set: Set, result: String): Assertion = assert(FunSets.toString(set) === result)
   }
 
   test("contains") {
     new TestSets {
       assert(contains(s1, 1))
       assert(!contains(s1, 2))
+      assert(contains(s123, 1))
+      assert(contains(s123, 2))
+      assert(contains(s123, 3))
+      assert(!contains(s123, 4))
     }
   }
 
