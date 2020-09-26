@@ -179,4 +179,21 @@ object Anagrams {
     }
   }
 
+  def sentenceAnagramsMemo(sentence: Sentence): List[Sentence] =
+    sentenceAnagramsMemoAux(sentenceOccurrences(sentence))
+
+  var anagramMemorizer: scala.collection.mutable.Map[Occurrences, List[Sentence]] =
+    new scala.collection.mutable.HashMap[Occurrences, List[Sentence]] += Nil -> List(Nil)
+
+  def sentenceAnagramsMemoAux(occurrences: Occurrences): List[Sentence] =
+    anagramMemorizer.getOrElse(occurrences, {
+      val containingWords = combinations(occurrences).flatMap(dictionaryByOccurrences.getOrElse(_, None))
+      val result = containingWords.flatMap { word =>
+        val remainingOccurrences = subtract(occurrences, wordOccurrences(word))
+        val aragramsFromRemaining = sentenceAnagramsMemoAux(remainingOccurrences)
+        aragramsFromRemaining.map(word :: _)
+      }
+      anagramMemorizer.addOne(occurrences -> result)
+      result
+    })
 }
