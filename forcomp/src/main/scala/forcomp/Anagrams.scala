@@ -166,15 +166,16 @@ object Anagrams {
    *  Note: There is only one anagram of an empty sentence.
    */
   def sentenceAnagrams(sentence: Sentence): List[Sentence] = {
-    if (sentence.isEmpty) return List(Nil)
     sentenceAnagramsAux(sentenceOccurrences(sentence))
   }
 
   def sentenceAnagramsAux(occurrences: Occurrences): List[Sentence] = {
+    if (occurrences.isEmpty) return List(Nil)
     val containingWords = combinations(occurrences).flatMap(dictionaryByOccurrences.getOrElse(_, None))
     containingWords.flatMap { word =>
       val remainingOccurrences = subtract(occurrences, wordOccurrences(word))
-      sentenceAnagramsAux(remainingOccurrences).map(word :: _)
+      val aragramsFromRemaining = sentenceAnagramsAux(remainingOccurrences)
+      aragramsFromRemaining.map(word :: _)
     }
   }
 
