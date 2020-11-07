@@ -31,12 +31,12 @@ trait GameDef {
    *  
    *   x axis
    */
-  case class Pos(x: Int, y: Int) {
+  case class Pos(row: Int, col: Int) {
     /** The position obtained by changing the `x` coordinate by `d` */
-    def dx(d: Int) = copy(x = x + d)
+    def dRow(d: Int) = copy(row = row + d)
 
     /** The position obtained by changing the `y` coordinate by `d` */
-    def dy(d: Int) = copy(y = y + d)
+    def dCol(d: Int) = copy(col = col + d)
   }
 
   /**
@@ -63,7 +63,7 @@ trait GameDef {
    */
   type Terrain = Pos => Boolean
 
-  
+
   /**
    * The terrain of this game. This value is left abstract.
    */
@@ -94,39 +94,39 @@ trait GameDef {
   case class Block(b1: Pos, b2: Pos) {
 
     // checks the requirement mentioned above
-    require(b1.x <= b2.x && b1.y <= b2.y, "Invalid block position: b1=" + b1 + ", b2=" + b2)
+    require(b1.row <= b2.row && b1.col <= b2.col, "Invalid block position: b1=" + b1 + ", b2=" + b2)
 
     /**
      * Returns a block where the `x` coordinates of `b1` and `b2` are
      * changed by `d1` and `d2`, respectively.
      */
-    def dx(d1: Int, d2: Int) = Block(b1.dx(d1), b2.dx(d2))
+    def dx(d1: Int, d2: Int) = Block(b1.dRow(d1), b2.dRow(d2))
 
     /**
      * Returns a block where the `y` coordinates of `b1` and `b2` are
      * changed by `d1` and `d2`, respectively.
      */
-    def dy(d1: Int, d2: Int) = Block(b1.dy(d1), b2.dy(d2))
+    def dy(d1: Int, d2: Int) = Block(b1.dCol(d1), b2.dCol(d2))
 
 
     /** The block obtained by moving left */
     def left = if (isStanding)         dy(-2, -1)
-               else if (b1.x == b2.x)  dy(-1, -2)
+               else if (b1.row == b2.row)  dy(-1, -2)
                else                    dy(-1, -1)
 
     /** The block obtained by moving right */
     def right = if (isStanding)        dy(1, 2)
-                else if (b1.x == b2.x) dy(2, 1)
+                else if (b1.row == b2.row) dy(2, 1)
                 else                   dy(1, 1)
 
     /** The block obtained by moving up */
     def up = if (isStanding)           dx(-2, -1)
-             else if (b1.x == b2.x)    dx(-1, -1)
+             else if (b1.row == b2.row)    dx(-1, -1)
              else                      dx(-1, -2)
 
     /** The block obtained by moving down */
     def down = if (isStanding)         dx(1, 2)
-               else if (b1.x == b2.x)  dx(1, 1)
+               else if (b1.row == b2.row)  dx(1, 1)
                else                    dx(2, 1)
 
 
