@@ -1,11 +1,9 @@
 import scala.language.postfixOps
 import scala.io.StdIn
 import scala.util._
-import scala.util.control.NonFatal
 import scala.concurrent._
 import scala.concurrent.duration._
 import ExecutionContext.Implicits.global
-import scala.async.Async.{async, await}
 
 /** Contains basic data types, data structures and `Future` extensions.
  */

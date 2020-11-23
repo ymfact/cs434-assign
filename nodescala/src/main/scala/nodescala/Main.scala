@@ -1,12 +1,8 @@
 package nodescala
 
-import java.lang.Error
-
 import scala.language.postfixOps
 import scala.concurrent._
-import scala.concurrent.duration._
 import ExecutionContext.Implicits.global
-import scala.async.Async.{async, await}
 import scala.util.{Failure, Success}
 
 object Main {
