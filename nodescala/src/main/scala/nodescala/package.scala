@@ -1,4 +1,5 @@
 import java.util.NoSuchElementException
+import java.util.concurrent.atomic.AtomicBoolean
 
 import nodescala.CancellationToken
 
@@ -87,15 +88,15 @@ package object nodescala {
      */
     def run()(f: CancellationToken => Future[Unit]): Subscription = new Subscription {
       private val token = new CancellationToken {
-        var _isCancelled: Boolean = false
+        var _isCancelled: AtomicBoolean = new AtomicBoolean
 
-        override def isCancelled: Boolean = _isCancelled
+        override def isCancelled: Boolean = _isCancelled.get
       }
 
       f(token)
 
       override def unsubscribe(): Unit =
-        token._isCancelled = true
+        token._isCancelled.set(true)
     }
 
 
