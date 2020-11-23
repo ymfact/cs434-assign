@@ -9,7 +9,6 @@ import scala.collection.immutable
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{Future, Promise}
 import scala.jdk.CollectionConverters.{CollectionHasAsScala, MapHasAsScala}
-import scala.util.{Failure, Success}
 
 /** Contains utilities common to the NodeScala© framework.
  */
@@ -52,9 +51,9 @@ trait NodeScala {
       Future {
         listener.createContext { exchange =>
           respond(exchange, token, handler(exchange.request))
-          if (token.isCancelled)
-            subscription.unsubscribe()
         }
+        while (token.nonCancelled) {}
+        subscription.unsubscribe()
       }
     }
   }
